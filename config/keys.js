@@ -1,5 +1,5 @@
-module.exports = {
-    googleProjectId: "reactpageagent-kkig",
-    dialogFlowSessionId: "react-bot-session", // can be anything else
-    dialogFlowSessionLanguageCode: "en-US"
+if (process.env.NODE_ENV === 'production'){
+    module.exports = require('./prod');
+} else{
+    module.exports = require('./dev');
 }

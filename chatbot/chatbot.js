@@ -1,10 +1,17 @@
 'use strict'
 const dialogflow = require('dialogflow');
+const structjson = require('structjson');
 const config = require("../config/keys")
 
-const sessionClient = new dialogflow.SessionsClient();
+const projectID = config.googleProjectId;
+const credentials = {
+    client_email: config.googleClientEmail,
+    private_key: config.googlePrivateKey
+}
+
+const sessionClient = new dialogflow.SessionsClient({projectID: projectID, credentials: credentials});
 const sessionPath = sessionClient.sessionPath(config.googleProjectId, config.dialogFlowSessionId);
-const structjson = require('structjson');
+
 
 const textQuery = async (text, parameters) => {
     const request = {
