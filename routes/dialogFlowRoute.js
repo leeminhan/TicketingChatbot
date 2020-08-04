@@ -8,16 +8,17 @@ module.exports = app => {
     app.post('/api/df_text_query', async(req,res) => {
         
         console.log(req.body.text)
-        let responses = await chatbot.textQuery(req.body.text, req.body.params)
+        let responses = await chatbot.textQuery(req.body.text, req.body.parameters)
         res.send(responses[0].queryResult)
 
     })
 
     // requests with event from bot
-    app.post('/api/df_event_query', (req,res) => {
-        res.send({
-            "do": "event query"
-        })
+    app.post('/api/df_event_query', async(req,res) => {
+
+        console.log(req.body.event)
+        let responses = await chatbot.eventQuery(req.body.event, req.body.parameters)
+        res.send(responses[0].queryResult)
     })
 
 }
