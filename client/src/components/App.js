@@ -1,9 +1,25 @@
 import React from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
+
+import Header from './Header';
+import Landing from './pages/Landing';
+import About from './pages/About';
+import Resources from './ticketing/Resources'
+import Chatbot from './chatbot/Chatbot';
+
 
 const App = () => {
     return (
         <div>
-            "App"
+            <BrowserRouter>
+                <div className="container">
+                    <Header/>
+                    <Route exact path="/" component={Landing}/>
+                    <Route exact path="/about" component={About}/>
+                    <Route exact path="/resources" component={Resources}/>
+                    <Chatbot/>
+                </div>
+            </BrowserRouter>
         </div>
     )
 }
