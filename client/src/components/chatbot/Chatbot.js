@@ -5,6 +5,7 @@ import {v4 as uuid} from 'uuid';
 
 import Message from './Message';
 import Card from './Card';
+import QuickReplies from './QuickReplies';
 
 const cookies = new Cookies();
 
@@ -17,6 +18,8 @@ class Chatbot extends Component {
 
         //binding necessary to make 'this' work in the callback
         this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
+        this._handleQuickeReplyPayLoad = this._handleQuickeReplyPayLoad.bind(this);
+
         this.state = {
             messages: []
         }
@@ -73,6 +76,14 @@ class Chatbot extends Component {
 
     componentDidUpdate() {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    _handleQuickeReplyPayLoad(event, payload, text){
+        // prevent default link behavior - opening a link in the href property
+        event.preventDefault();
+        event.stopPropagation();
+        this.df_text_query(text);
+
     }
 
     renderCards(cards){
@@ -142,7 +153,7 @@ class Chatbot extends Component {
                         style={{float:'left', clear: 'both'}}>
                     </div>
                 </div>
-                
+
                 <div className=" col s12" >
                     <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}} ref={(input) => { this.talkInput = input; }} placeholder="type a message:"  onKeyPress={this._handleInputKeyPress} id="user_says" type="text" />
                 </div>
