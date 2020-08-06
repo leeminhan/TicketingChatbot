@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import {v4 as uuid} from 'uuid';
 
 import Message from './Message';
+
+const cookies = new Cookies();
 
 class Chatbot extends Component {
 
@@ -10,10 +14,16 @@ class Chatbot extends Component {
     constructor(props) {
         super(props);
 
+        //binding necessary to make 'this' work in the callback
         this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
         this.state = {
             messages: []
         }
+
+        if (cookies.get('userID') === undefined) {
+            cookies.set('userID', uuid(), { path: '/' });
+        }
+        console.log((cookies.get('userID')))
     }
 
     async df_text_query(queryText) {
@@ -29,7 +39,7 @@ class Chatbot extends Component {
 
         this.setState({messages: [...this.state.messages, says]}); // adding old messages with new user messages
 
-        const res = await axios.post('/api/df_text_query', {text: queryText})
+        const res = await axios.post('/api/df_text_query', {text: queryText, userID: cookies.get('userID')})
         
         // messages from bot
         for (let msg of res.data.fulfillmentMessages) {
@@ -44,7 +54,7 @@ class Chatbot extends Component {
     }
 
     async df_event_query(eventName) {
-        const res = await axios.post('/api/df_event_query', {event: eventName})
+        const res = await axios.post('/api/df_event_query', {event: eventName, userID: cookies.get('userID')})
 
         for (let msg of res.data.fulfillmentMessages) {
             
