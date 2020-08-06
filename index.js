@@ -5,10 +5,6 @@ const dialogFlowRoute = require("./routes/dialogFlowRoute")
 
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-    res.send({"hello": "there"})
-})
-
 require('./routes/dialogFlowRoute')(app);
 // app.use('/api/df_text_query', dialogFlowRoute);
 
