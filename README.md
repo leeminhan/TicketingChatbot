@@ -1,3 +1,3 @@
 # TicketingChatbot
-• A proof-of-concept ChatBot to improve user experience and reduce time wasted for Production Support to raise tickets on various production issues
+• A proof-of-concept ChatBot to improve user experience and reduce time wasted for Production Support to raise tickets on various production issues<br/>
 • Developed the ChatBot using ReactJS, Express, Google DialogFlow and deployed on Heroku
